@@ -3,6 +3,8 @@ import "../public/shared-common/css/themes/yel-chem-research-light.css";
 
 import StyledJsxRegistry from "./registry";
 
+export const runtime = "edge";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en-AU">
@@ -15,9 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
             </head>
             <body>
-                <StyledJsxRegistry>
-                    {children}
-                </StyledJsxRegistry>
+                <StyledJsxRegistry>{children}</StyledJsxRegistry>
             </body>
         </html>
     );

@@ -2,6 +2,7 @@ import Nav from "../../components/nav";
 import { Metadata } from "next";
 import { headMetadata } from "../metadata";
 import { SignInPageContent } from "../../components/login/common";
+import { Suspense } from "react";
 
 export const metadata: Metadata = headMetadata({
     title: "Login to cms @ Yellow Chemistry Publishing",
@@ -17,7 +18,9 @@ export default function Page() {
         <>
             <Nav hideProfileMarkup={true} />
             <main className="main-box reading-box accent-color-2" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <SignInPageContent />
+                <Suspense fallback={<></>}>
+                    <SignInPageContent />
+                </Suspense>
             </main>
         </>
     );

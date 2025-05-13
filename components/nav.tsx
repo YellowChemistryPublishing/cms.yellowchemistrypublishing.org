@@ -19,25 +19,25 @@ export default function Nav(props) {
         );
     };
 
-    if (!props.hideProfileMarkup) {
-        useEffect(() => {
+    useEffect(() => {
+        if (!props.hideProfileMarkup) {
             const effect = async () => {
                 const profile: UserProfile = new UserProfile();
                 if (!profile.empty()) {
-                    if (!profile.resolved()) {
-                        try {
+                    try {
+                        if (!profile.resolved()) {
                             await profile.fetchAssignUserData();
                             profile.sync();
-                        } catch (ex) {
-                            setLoggedOutProfileMarkup();
                         }
+                        setProfileMarkup(<ProfileDropdown profile={profile} />);
+                    } catch {
+                        setLoggedOutProfileMarkup();
                     }
-                    setProfileMarkup(<ProfileDropdown profile={profile} />);
                 } else setLoggedOutProfileMarkup();
             };
             effect();
-        }, []);
-    }
+        }
+    }, [props.hideProfileMarkup]);
 
     return (
         <nav className="accent-color-2" style={{ width: "100%" }}>
@@ -50,7 +50,7 @@ export default function Nav(props) {
             <noscript>
                 <p className="nav-box">
                     <b>
-                        This page <em>definitely</em> won't work without JavaScript!
+                        This page <em>definitely</em> won&apos;t work without JavaScript!
                     </b>
                 </p>
             </noscript>

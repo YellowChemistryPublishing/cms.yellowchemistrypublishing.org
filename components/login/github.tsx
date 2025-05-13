@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { UserProfile } from "./common";
 import { v4 as uuidv4 } from "uuid";
 import { useSearchParams } from "next/navigation";
@@ -18,12 +18,12 @@ function oauth2WithGitHub(): void {
     window.location.href = authUrl;
 }
 
-export default function ButtonSSOGitHub(props) {
-    let code: string | null = useSearchParams().get("code");
+export default function ButtonSSOGitHub() {
+    const code: string | null = useSearchParams().get("code");
 
     useEffect(() => {
         const effect = async () => {
-            let profile: UserProfile = new UserProfile();
+            const profile: UserProfile = new UserProfile();
             if (profile.empty() && code) {
                 const res = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`);
                 const data = await res.json();

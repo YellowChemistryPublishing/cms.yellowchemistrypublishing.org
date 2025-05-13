@@ -68,7 +68,7 @@ export class UserProfile {
 export function SignInPageContent() {
     useEffect(() => {
         const effect = async () => {
-            let profile: UserProfile = new UserProfile();
+            const profile: UserProfile = new UserProfile();
             if (!profile.empty() && !profile.resolved()) {
                 await profile.fetchAssignUserData();
                 profile.sync();
@@ -87,7 +87,7 @@ export function SignInPageContent() {
     else
         return (
             <>
-                <p style={{ alignSelf: "flex-start" }}>Hang on, you're being redirected!</p>
+                <p style={{ alignSelf: "flex-start" }}>Hang on, you&apos;re being redirected!</p>
                 <ButtonSSOGitHub />
             </>
         );

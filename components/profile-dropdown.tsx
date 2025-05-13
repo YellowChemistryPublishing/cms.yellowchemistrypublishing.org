@@ -5,7 +5,7 @@ import { UserProfile } from "./login/common";
 import { useEffect } from "react";
 
 function logout() {
-    let profile = new UserProfile();
+    const profile = new UserProfile();
     profile.clear();
     profile.sync();
     window.location.href = window.location.origin;

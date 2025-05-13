@@ -22,8 +22,8 @@ type HeadMetadata = {
 
 export function headMetadata(metadata: HeadMetadata): Metadata {
     return {
-        title: metadata.title ?? null,
-        icons: metadata.favicon ?? null,
+        title: metadata.title ?? "",
+        icons: metadata.favicon ?? "",
         other: {
             "language": "en-AU",
             "HandheldFriendly": "True",
@@ -31,34 +31,34 @@ export function headMetadata(metadata: HeadMetadata): Metadata {
             "format-detection": "telephone=no",
 
             "referrer": "no-referrer",
-            "robots": metadata.robotsBad ? "noindex, nofollow" : null,
+            "robots": metadata.robotsBad ? "noindex, nofollow" : "",
 
-            "application-name": metadata.title ?? null,
-            "url": metadata.url ?? null,
+            "application-name": metadata.title ?? "",
+            "url": metadata.url ?? "",
 
-            "author": metadata.author ?? null,
-            "designer": metadata.designer ?? null,
-            "reply-to": metadata.replyTo ?? null,
-            "keywords": metadata.keywords ?? null,
-            "topic": metadata.topic ?? null,
-            "description": metadata.description ?? null,
-            "theme-color": metadata.themeColor ?? null,
-            "copyright": metadata.copyright ?? null,
+            "author": metadata.author ?? "",
+            "designer": metadata.designer ?? "",
+            "reply-to": metadata.replyTo ?? "",
+            "keywords": metadata.keywords ?? "",
+            "topic": metadata.topic ?? "",
+            "description": metadata.description ?? "",
+            "theme-color": metadata.themeColor ?? "",
+            "copyright": metadata.copyright ?? "",
 
-            "og:title": metadata.title ?? null,
+            "og:title": metadata.title ?? "",
             "og:type": metadata.ogType ?? "website",
-            "og:url": metadata.url ?? null,
-            "og:description": metadata.description ?? null,
-            "og:image": metadata.previewImage ?? null,
-            "og:email": metadata.replyTo ?? null,
+            "og:url": metadata.url ?? "",
+            "og:description": metadata.description ?? "",
+            "og:image": metadata.previewImage ?? "",
+            "og:email": metadata.replyTo ?? "",
             "og:locality": "Sydney",
             "og:region": "NSW",
             "og:country-name": "Australia",
 
             "twitter:card": metadata.previewImage ? "summary_large_image" : "summary",
-            "twitter:title": metadata.title ?? null,
-            "twitter:description": metadata.description ?? null,
-            "twitter:image": metadata.previewImage ?? null
+            "twitter:title": metadata.title ?? "",
+            "twitter:description": metadata.description ?? "",
+            "twitter:image": metadata.previewImage ?? ""
         }
     };
 }
