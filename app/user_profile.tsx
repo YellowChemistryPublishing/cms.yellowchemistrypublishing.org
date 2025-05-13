@@ -60,5 +60,5 @@ export class UserProfile {
 }
 
 export function isExpectingRedirect(): boolean {
-    return new URLSearchParams(window.location.href).has("code");
+    return new URLSearchParams(window.location.search).has("code");
 }

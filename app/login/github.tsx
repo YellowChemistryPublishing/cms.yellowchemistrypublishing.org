@@ -13,7 +13,7 @@ function oauth2WithGitHub(): void {
 
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectUrl}&scope=${scope}`;
 
-    const redir = new URLSearchParams(window.location.href).get("redir");
+    const redir = new URLSearchParams(window.location.search).get("redir");
     if (redir) localStorage.setItem("redir", redir);
     window.location.href = authUrl;
 }
