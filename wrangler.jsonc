@@ -1,5 +1,5 @@
 {
-    "name": "cms.yellowchemistrypublishing.org",
+    "name": "cms-yellowchemistrypublishing",
     "compatibility_date": "2025-05-01",
     "compatibility_flags": ["nodejs_compat"],
     "pages_build_output_dir": ".vercel/output/static"
