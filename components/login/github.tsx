@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useEffect } from "react";
-import { UserProfile } from "./common";
+import { useIsExpectingRedirect, UserProfile } from "./common";
 import { v4 as uuidv4 } from "uuid";
 import { useSearchParams } from "next/navigation";
 
 function oauth2WithGitHub(): void {
     const clientID = "Ov23liHccCCFfBivxT9D";
     const redirectUrl = window.location.protocol + "//" + window.location.host + "/login";
-    const scope = "read:user";
+    const scope = "read:user,user:email";
 
     const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectUrl}&scope=${scope}`;
 
@@ -49,7 +49,7 @@ export default function ButtonSSOGitHub() {
         effect();
     }, [code]);
 
-    if (!code)
+    if (!useIsExpectingRedirect())
         return (
             <button className="brm ptm prm pbm plm" onClick={oauth2WithGitHub} style={{ fontSize: "xx-large" }}>
                 <Image src="res/github.svg" alt="GitHub Logo" width={20} height={20} style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }} />

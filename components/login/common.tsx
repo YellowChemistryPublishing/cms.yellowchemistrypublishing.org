@@ -65,6 +65,10 @@ export class UserProfile {
     }
 }
 
+export function useIsExpectingRedirect(): boolean {
+    return useSearchParams().has("code");
+}
+
 export function SignInPageContent() {
     useEffect(() => {
         const effect = async () => {
@@ -77,7 +81,7 @@ export function SignInPageContent() {
         effect();
     }, []);
 
-    if (!useSearchParams().has("code"))
+    if (!useIsExpectingRedirect())
         return (
             <>
                 <h2 style={{ alignSelf: "flex-start" }}>Login with...</h2>
