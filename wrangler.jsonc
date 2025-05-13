@@ -5,7 +5,6 @@
     "pages_build_output_dir": ".vercel/output/static",
     "assets": {
         "directory": "./public",
-        "binding": "ASSETS",
         "html_handling": "drop-trailing-slash",
         "not_found_handling": "404-page"
     },
