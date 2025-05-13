@@ -1,0 +1,3 @@
+[submodule "public/shared-common"]
+	path = public/shared-common
+	url = https://github.com/YellowChemistryPublishing/static-yellowchemistrypublishing.org.git
