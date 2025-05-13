@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
-import { useIsExpectingRedirect, UserProfile } from "./common";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useSearchParams } from "next/navigation";
+import { isExpectingRedirect, UserProfile } from "../user_profile";
 
 function oauth2WithGitHub(): void {
     const clientID = "Ov23liHccCCFfBivxT9D";
@@ -20,6 +20,7 @@ function oauth2WithGitHub(): void {
 
 export default function ButtonSSOGitHub() {
     const code: string | null = useSearchParams().get("code");
+    const [markup, setMarkup] = useState(<></>);
 
     useEffect(() => {
         const effect = async () => {
@@ -45,15 +46,23 @@ export default function ButtonSSOGitHub() {
                     window.location.href = window.location.protocol + "//" + window.location.host + redir;
                 } else window.location.href = window.location.protocol + "//" + window.location.host;
             }
+
+            if (!isExpectingRedirect())
+                setMarkup(
+                    <button className="brm ptm prm pbm plm" onClick={oauth2WithGitHub} style={{ fontSize: "xx-large" }}>
+                        <Image
+                            src="res/github.svg"
+                            alt="GitHub Logo"
+                            width={20}
+                            height={20}
+                            style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }}
+                        />
+                        &nbsp; Single Sign-On (GitHub)
+                    </button>
+                );
         };
         effect();
     }, [code]);
 
-    if (!useIsExpectingRedirect())
-        return (
-            <button className="brm ptm prm pbm plm" onClick={oauth2WithGitHub} style={{ fontSize: "xx-large" }}>
-                <Image src="res/github.svg" alt="GitHub Logo" width={20} height={20} style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }} />
-                &nbsp; Single Sign-On (GitHub)
-            </button>
-        );
+    return markup;
 }

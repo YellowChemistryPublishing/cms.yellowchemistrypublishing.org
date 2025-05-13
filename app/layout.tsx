@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                 <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
             </head>
-            <body>
+            <body style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", width: "100%", height: "100%" }}>
                 <StyledJsxRegistry>{children}</StyledJsxRegistry>
             </body>
         </html>

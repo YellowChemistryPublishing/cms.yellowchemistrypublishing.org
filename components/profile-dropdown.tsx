@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { UserProfile } from "./login/common";
+import { UserProfile } from "../app/user_profile";
 import { useEffect } from "react";
+import Link from "next/link";
 
 function logout() {
     const profile = new UserProfile();
@@ -16,9 +17,11 @@ function toggleDropdown() {
     if (dropdown) {
         if (dropdown.style.opacity === "1") {
             dropdown.style.opacity = "0%";
+            dropdown.style.pointerEvents = "none";
             if (chevron) chevron.setAttribute("src", "/res/chevron-right.svg");
         } else {
             dropdown.style.opacity = "100%";
+            dropdown.style.pointerEvents = "all";
             if (chevron) chevron.setAttribute("src", "/res/chevron-down.svg");
         }
     }
@@ -31,6 +34,7 @@ function onMouseClick(ev: MouseEvent) {
         const chevron = document.getElementById("profile-chevron");
         if (dropdown) {
             dropdown.style.opacity = "0%";
+            dropdown.style.pointerEvents = "none";
             if (chevron) chevron.setAttribute("src", "/res/chevron-right.svg");
         }
     }
@@ -72,6 +76,9 @@ export default function ProfileDropdown(props) {
                     className="brt"
                     style={{ backgroundColor: "white", boxShadow: "0px 0px 15px #1f293722", opacity: "0%", position: "absolute", width: "100%" }}
                 >
+                    <Link className="button zero-margin brt" href="/user" style={{ textAlign: "right", width: "100%" }}>
+                        <b>My Profile</b>
+                    </Link>
                     <button className="zero-margin brt" onClick={logout} style={{ textAlign: "right", width: "100%" }}>
                         Logout
                     </button>

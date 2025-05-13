@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { UserProfile } from "./login/common";
+import { UserProfile } from "../app/user_profile";
 import ProfileDropdown from "./profile-dropdown";
 
 export default function Nav(props) {

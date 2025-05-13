@@ -1,9 +1,3 @@
-"use client";
-
-import { useEffect } from "react";
-import ButtonSSOGitHub from "./github";
-import { useSearchParams } from "next/navigation";
-
 export class UserProfile {
     loginToken: string | null = null;
     type: string | null = null;
@@ -28,7 +22,7 @@ export class UserProfile {
         return !this.loginToken || !this.type;
     }
     resolved(): boolean {
-        return !this.loginToken || !this.type || !this.displayName || !this.data;
+        return !!this.loginToken && !!this.type && !!this.displayName && !!this.data;
     }
     clear(): void {
         this.loginToken = null;
@@ -65,34 +59,6 @@ export class UserProfile {
     }
 }
 
-export function useIsExpectingRedirect(): boolean {
-    return useSearchParams().has("code");
-}
-
-export function SignInPageContent() {
-    useEffect(() => {
-        const effect = async () => {
-            const profile: UserProfile = new UserProfile();
-            if (!profile.empty() && !profile.resolved()) {
-                await profile.fetchAssignUserData();
-                profile.sync();
-            }
-        };
-        effect();
-    }, []);
-
-    if (!useIsExpectingRedirect())
-        return (
-            <>
-                <h2 style={{ alignSelf: "flex-start" }}>Login with...</h2>
-                <ButtonSSOGitHub />
-            </>
-        );
-    else
-        return (
-            <>
-                <p style={{ alignSelf: "flex-start" }}>Hang on, you&apos;re being redirected!</p>
-                <ButtonSSOGitHub />
-            </>
-        );
+export function isExpectingRedirect(): boolean {
+    return new URLSearchParams(window.location.href).has("code");
 }

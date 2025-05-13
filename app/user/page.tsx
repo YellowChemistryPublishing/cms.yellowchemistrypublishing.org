@@ -1,13 +1,13 @@
-import Nav from "../../components/nav";
 import { Metadata } from "next";
+import Nav from "../../components/nav";
 import { headMetadata } from "../metadata";
-import { SignInPageContent } from "./content";
+import UserPageContent from "./content";
 
 export const metadata: Metadata = headMetadata({
-    title: "Login to cms @ Yellow Chemistry Publishing",
+    title: "cms: User Profile",
     favicon: "/shared-common/res/favicon.png",
     themeColor: "#ed771d",
-    description: "Login to the cms here!",
+    description: "Your details are here!",
     replyTo: "engineering@yellowchemistrypublishing.org",
     copyright: `${new Date().getFullYear()} Yellow Chemistry Publishing`
 });
@@ -15,9 +15,9 @@ export const metadata: Metadata = headMetadata({
 export default function Page() {
     return (
         <>
-            <Nav hideProfileMarkup={true} />
-            <main className="main-box reading-box accent-color-2" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <SignInPageContent />
+            <Nav />
+            <main className="main-box reading-box accent-color-2" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                <UserPageContent />
             </main>
         </>
     );
