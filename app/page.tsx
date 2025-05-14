@@ -4,6 +4,7 @@ import Nav from "../components/nav";
 import FilingCabinetFolder from "../components/filing_cabinet";
 import FilingCabinetRadioFolder from "./section_radio_folder";
 import FilingCabinetAdminFolder from "./section_admin_folder";
+import Image from "next/image";
 
 export const metadata: Metadata = headMetadata({
     title: "cms @ Yellow Chemistry Publishing",
@@ -31,6 +32,16 @@ export default function Page() {
                 <FilingCabinetFolder href="/discourse">
                     <h2>DiskHorse</h2>
                     <p>Visit your forums.</p>
+                    <div className="content-box" style={{ flex: 1 }}>
+                        <Image
+                            className="zero-box zero-margin brm"
+                            src="/res/diskhorse.jpg"
+                            alt="honse"
+                            width={320}
+                            height={320}
+                            style={{ width: "auto", maxWidth: "100%", height: "100%" }}
+                        />
+                    </div>
                 </FilingCabinetFolder>
                 <FilingCabinetRadioFolder />
                 <FilingCabinetAdminFolder />

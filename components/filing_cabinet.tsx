@@ -59,7 +59,7 @@ export default function FilingCabinetFolder(props: { href: string; children: Rea
                 <div aria-hidden={true} className="ptm mrm pbm mlz wt" style={{ height: "100%" }}>
                     <div className="accent-color-bg-2" style={{ height: "100%" }}></div>
                 </div>
-                <div>{props.children}</div>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>{props.children}</div>
             </Link>
         </>
     );

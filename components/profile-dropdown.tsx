@@ -70,7 +70,7 @@ export default function ProfileDropdown(props: { profile: UserProfile }) {
             mediaQuery.removeEventListener("change", onWatchChange);
             removeEventListener("click", onMouseClick);
         };
-    }, []);
+    }, [mediaQuery]);
 
     return (
         <div className="pbm" style={{ display: "flex", flexDirection: "row", alignItems: "first baseline", position: "relative" }}>

@@ -36,7 +36,7 @@ export default function Nav(props: { hideProfileMarkup?: boolean }) {
             };
             effect();
         }
-    }, []);
+    }, [props.hideProfileMarkup]);
 
     return (
         <nav className="accent-color-2" style={{ zIndex: 1337, position: "sticky", top: 0, left: 0, width: "100%" }}>
