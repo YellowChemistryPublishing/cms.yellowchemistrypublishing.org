@@ -17,7 +17,7 @@ export default function Page() {
             <Nav />
             <main className="main-box reading-box accent-color-2" style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%" }}>
                 <h2>Radio @ Yellow Chemistry Publishing is coming soon!</h2>
-                <p>Stay tuned, it's still in development...</p>
+                <p>Stay tuned, it&apos;s still in development...</p>
             </main>
         </>
     );
