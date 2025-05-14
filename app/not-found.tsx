@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import HTTPErrorPage from "../public/shared-common/http_error";
-import { headMetadata } from "./metadata";
+import { headMetadata } from "../components/metadata";
 import fs from "node:fs";
 
 export const metadata: Metadata = headMetadata({

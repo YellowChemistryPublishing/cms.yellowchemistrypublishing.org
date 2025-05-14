@@ -77,6 +77,7 @@ export default function ProfileDropdown(props: { profile: UserProfile }) {
             <p className="zero-box">
                 <Image
                     id="profile-chevron"
+                    className="accent-color-tint-1"
                     src="/res/chevron-right.svg"
                     alt="Right-pointing chevron."
                     width={20}

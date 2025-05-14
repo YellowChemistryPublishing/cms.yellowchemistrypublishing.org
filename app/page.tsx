@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { headMetadata } from "./metadata";
+import { headMetadata } from "../components/metadata";
 import Nav from "../components/nav";
 import FilingCabinetFolder from "../components/filing_cabinet";
 import FilingCabinetRadioFolder from "./section_radio_folder";
@@ -10,7 +10,6 @@ export const metadata: Metadata = headMetadata({
     title: "cms @ Yellow Chemistry Publishing",
     favicon: "/shared-common/res/favicon.png",
     themeColor: "#ed771d",
-    keywords: "API, CMS, Yellow Chemistry Publishing",
     description: "Welcome to the content management system at Yellow Chemistry Publishing.",
     replyTo: "engineering@yellowchemistrypublishing.org",
     copyright: `${new Date().getFullYear()} Yellow Chemistry Publishing`
@@ -20,7 +19,7 @@ export default function Page() {
     return (
         <>
             <Nav />
-            <main className="accent-color-2" style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%" }}>
+            <main className="accent-color-2" style={{ display: "flex", flexDirection: "column", width: "100%", flex: "1 1 0", height: "100%" }}>
                 <FilingCabinetFolder href="/infodesk">
                     <h2>Policy, Procedures, and Information</h2>
                     <p>Access all your documentation and information here.</p>
@@ -32,14 +31,14 @@ export default function Page() {
                 <FilingCabinetFolder href="/discourse">
                     <h2>DiskHorse</h2>
                     <p>Visit your forums.</p>
-                    <div className="content-box" style={{ flex: 1 }}>
+                    <div className="content-box" style={{ flex: "1 1 0" }}>
                         <Image
                             className="zero-box zero-margin brm"
                             src="/res/diskhorse.jpg"
                             alt="honse"
-                            width={320}
-                            height={320}
-                            style={{ width: "auto", maxWidth: "100%", height: "100%" }}
+                            width={160}
+                            height={160}
+                            style={{ minWidth: 0, width: "100%", height: "auto", maxWidth: "100%", maxHeight: "100%" }}
                         />
                     </div>
                 </FilingCabinetFolder>

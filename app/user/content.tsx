@@ -25,7 +25,8 @@ export default function UserPageContent() {
                     { key: <>Authentication Backend</>, value: <b>{profile.type === "gh" ? "GitHub" : ""}</b> },
                     { key: <>Email</>, value: <b></b> },
                     { key: <>Linked Accounts</>, value: <b></b> },
-                    { key: <>Groups</>, value: <b></b> }
+                    { key: <>Groups</>, value: <b></b> },
+                    { key: <>Tags</>, value: <b></b> }
                 ]}
             />
             <LocalUserDataSection profile={profile} />

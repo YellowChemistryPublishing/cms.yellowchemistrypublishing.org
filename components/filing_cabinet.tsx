@@ -50,12 +50,19 @@ export default function FilingCabinetFolder(props: { href: string; children: Rea
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "flex-start",
-                    flex: 1,
+                    flex: "1 0 0",
                     position: "relative",
                     width: "100%"
                 }}
             >
-                <Image className="mtm mrz mbm mlz" src="res/chevron-right.svg" alt="GitHub Logo" width={20} height={20} style={{ width: "auto", height: "43px" }} />
+                <Image
+                    className="mtm mrz mbm mlz accent-color-tint-2"
+                    src="res/chevron-right.svg"
+                    alt="GitHub Logo"
+                    width={20}
+                    height={20}
+                    style={{ width: "auto", height: "43px" }}
+                />
                 <div aria-hidden={true} className="ptm mrm pbm mlz wt" style={{ height: "100%" }}>
                     <div className="accent-color-bg-2" style={{ height: "100%" }}></div>
                 </div>

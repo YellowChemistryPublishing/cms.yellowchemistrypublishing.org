@@ -1,6 +1,6 @@
 import Nav from "../../components/nav";
 import { Metadata } from "next";
-import { headMetadata } from "../metadata";
+import { headMetadata } from "../../components/metadata";
 import { SignInPageContent } from "./content";
 
 export const metadata: Metadata = headMetadata({

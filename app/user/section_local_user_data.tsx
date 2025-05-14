@@ -5,7 +5,14 @@ import { UserProfile } from "../../components/user_profile";
 export default function LocalUserDataSection(props: { profile: UserProfile }) {
     const defaultDataMarkup = () => (
         <button id="display-userdata" className="brt">
-            <Image src="res/chevron-right.svg" alt="GitHub Logo" width={20} height={20} style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }} />
+            <Image
+                className="accent-color-tint-1"
+                src="res/chevron-right.svg"
+                alt="GitHub Logo"
+                width={20}
+                height={20}
+                style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }}
+            />
             &nbsp; Click to View
         </button>
     );
@@ -20,6 +27,7 @@ export default function LocalUserDataSection(props: { profile: UserProfile }) {
                         <pre className="content-box zero-margin">{JSON.stringify(props.profile, null, 4)}</pre>
                         <button id="hide-userdata" className="brt">
                             <Image
+                                className="accent-color-tint-1"
                                 src="res/chevron-up.svg"
                                 alt="GitHub Logo"
                                 width={20}
