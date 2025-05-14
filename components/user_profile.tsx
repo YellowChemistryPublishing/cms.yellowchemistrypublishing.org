@@ -3,7 +3,7 @@ export class UserProfile {
     type: string | null = null;
 
     displayName: string | null = null;
-    data: object | null = null;
+    data: unknown | null = null;
 
     constructor() {
         const profileSerialized = localStorage.getItem("profile");

@@ -1,15 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { UserProfile } from "../app/user_profile";
+import { UserProfile } from "./user_profile";
 import { useEffect } from "react";
 import Link from "next/link";
+import { ShouldRedirect } from "./should_redirect";
 
 function logout() {
     const profile = new UserProfile();
     profile.clear();
     profile.sync();
-    window.location.href = window.location.origin;
+    new ShouldRedirect("/").redirectRegardless();
 }
 function toggleDropdown() {
     const dropdown = document.getElementById("profile-dropdown");
@@ -40,10 +41,9 @@ function onMouseClick(ev: MouseEvent) {
     }
 }
 
-export default function ProfileDropdown(props) {
+export default function ProfileDropdown(props: { profile: UserProfile }) {
     useEffect(() => {
         addEventListener("click", onMouseClick);
-
         return () => {
             removeEventListener("click", onMouseClick);
         };
@@ -58,7 +58,7 @@ export default function ProfileDropdown(props) {
                     alt="Right-pointing chevron."
                     width={20}
                     height={20}
-                    style={{ verticalAlign: "-0.2em", display: "inline", height: "1.2em" }}
+                    style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }}
                 />
                 &nbsp;
             </p>
@@ -66,15 +66,17 @@ export default function ProfileDropdown(props) {
                 <button className="zero-margin brt" onClick={toggleDropdown} style={{ textAlign: "right", width: "100%" }}>
                     Hi @gh:<b>{props.profile.displayName}</b>!
                 </button>
-                <style jsx>{`
-                    #profile-dropdown {
-                        transition: opacity 0.2s ease-in-out;
-                    }
-                `}</style>
                 <div
                     id="profile-dropdown"
                     className="brt"
-                    style={{ backgroundColor: "white", boxShadow: "0px 0px 15px #1f293722", opacity: "0%", position: "absolute", width: "100%" }}
+                    style={{
+                        backgroundColor: "white",
+                        boxShadow: "0px 0px 15px #1f293722",
+                        opacity: "0%",
+                        position: "absolute",
+                        width: "100%",
+                        transition: "opacity 0.2s ease-in-out"
+                    }}
                 >
                     <Link className="button zero-margin brt" href="/user" style={{ textAlign: "right", width: "100%" }}>
                         <b>My Profile</b>

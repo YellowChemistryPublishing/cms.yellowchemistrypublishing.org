@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { headMetadata } from "./metadata";
 import Nav from "../components/nav";
+import FilingCabinetFolder from "../components/filing_cabinet";
+import FilingCabinetRadioFolder from "./section_radio_folder";
+import FilingCabinetAdminFolder from "./section_admin_folder";
 
 export const metadata: Metadata = headMetadata({
     title: "cms @ Yellow Chemistry Publishing",
@@ -16,6 +19,22 @@ export default function Page() {
     return (
         <>
             <Nav />
+            <main className="accent-color-2" style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%" }}>
+                <FilingCabinetFolder href="/infodesk">
+                    <h2>Policy, Procedures, and Information</h2>
+                    <p>Access all your documentation and information here.</p>
+                </FilingCabinetFolder>
+                <FilingCabinetFolder href="/invenman">
+                    <h2>invenman</h2>
+                    <p>Manage your inventories.</p>
+                </FilingCabinetFolder>
+                <FilingCabinetFolder href="/discourse">
+                    <h2>DiskHorse</h2>
+                    <p>Visit your forums.</p>
+                </FilingCabinetFolder>
+                <FilingCabinetRadioFolder />
+                <FilingCabinetAdminFolder />
+            </main>
         </>
     );
 }

@@ -3,21 +3,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { UserProfile } from "../app/user_profile";
+import { UserProfile } from "./user_profile";
 import ProfileDropdown from "./profile-dropdown";
 
-export default function Nav(props) {
-    const [profileMarkup, setProfileMarkup] = useState(<></>);
-
-    const setLoggedOutProfileMarkup = () => {
-        setProfileMarkup(
-            <Link className="button brt" href={`/login?redir=${window.location.pathname}`}>
+export default function Nav(props: { hideProfileMarkup?: boolean }) {
+    const loggedOutProfileMarkup = (redirBack: boolean = true) => {
+        return (
+            <Link className="button brt" href={`/login${redirBack ? `?redir=${window.location.pathname}` : ""}`}>
                 <Image src="res/user-plus.svg" alt="User Icon" width={20} height={20} style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }} />
                 &nbsp;
                 <b>Login Here!</b>
             </Link>
         );
     };
+    const [profileMarkup, setProfileMarkup] = useState(loggedOutProfileMarkup(false));
 
     useEffect(() => {
         if (!props.hideProfileMarkup) {
@@ -31,16 +30,16 @@ export default function Nav(props) {
                         }
                         setProfileMarkup(<ProfileDropdown profile={profile} />);
                     } catch {
-                        setLoggedOutProfileMarkup();
+                        setProfileMarkup(loggedOutProfileMarkup(true));
                     }
-                } else setLoggedOutProfileMarkup();
+                } else setProfileMarkup(loggedOutProfileMarkup(true));
             };
             effect();
         }
-    }, [props.hideProfileMarkup]);
+    }, []);
 
     return (
-        <nav className="accent-color-2" style={{ width: "100%" }}>
+        <nav className="accent-color-2" style={{ zIndex: 1337, position: "sticky", top: 0, left: 0, width: "100%" }}>
             <style jsx>{`
                 :global(nav a),
                 :global(nav button) {

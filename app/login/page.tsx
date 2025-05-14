@@ -4,10 +4,10 @@ import { headMetadata } from "../metadata";
 import { SignInPageContent } from "./content";
 
 export const metadata: Metadata = headMetadata({
-    title: "Login to cms @ Yellow Chemistry Publishing",
+    title: "cms: Login",
     favicon: "/shared-common/res/favicon.png",
     themeColor: "#ed771d",
-    description: "Login to the cms here!",
+    description: "Login to cms here!",
     replyTo: "engineering@yellowchemistrypublishing.org",
     copyright: `${new Date().getFullYear()} Yellow Chemistry Publishing`
 });
