@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { UserProfile } from "./user_profile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ShouldRedirect } from "./should_redirect";
 
@@ -42,9 +42,32 @@ function onMouseClick(ev: MouseEvent) {
 }
 
 export default function ProfileDropdown(props: { profile: UserProfile }) {
+    const mediaQuery = window.matchMedia("(max-width: 500px)");
+
+    const createDropdownButtonsMarkup = (smallScreen: boolean) => {
+        return (
+            <>
+                <Link className="button zero-margin brt" href="/user" style={{ textAlign: smallScreen ? "left" : "right", width: "100%" }}>
+                    <b>My Profile</b>
+                </Link>
+                <button className="zero-margin brt" onClick={logout} style={{ textAlign: smallScreen ? "left" : "right", width: "100%" }}>
+                    Logout
+                </button>
+            </>
+        );
+    };
+    const [dropdownButtonsMarkup, setDropdownButtonsMarkup] = useState(createDropdownButtonsMarkup(mediaQuery.matches));
+
     useEffect(() => {
+        const onWatchChange = (ev: MediaQueryListEvent) => {
+            setDropdownButtonsMarkup(createDropdownButtonsMarkup(ev.matches));
+        };
+
         addEventListener("click", onMouseClick);
+        mediaQuery.addEventListener("change", onWatchChange);
+
         return () => {
+            mediaQuery.removeEventListener("change", onWatchChange);
             removeEventListener("click", onMouseClick);
         };
     }, []);
@@ -63,8 +86,9 @@ export default function ProfileDropdown(props: { profile: UserProfile }) {
                 &nbsp;
             </p>
             <div id="profile-dropdown-container" className="brt" style={{ position: "relative" }}>
-                <button className="zero-margin brt" onClick={toggleDropdown} style={{ textAlign: "right", width: "100%" }}>
-                    Hi @gh:<b>{props.profile.displayName}</b>!
+                <button className="zero-margin brt" onClick={toggleDropdown} style={{ textAlign: "left", width: "100%" }}>
+                    Hi @{props.profile.type}:<wbr />
+                    <b>{props.profile.displayName}</b>!
                 </button>
                 <div
                     id="profile-dropdown"
@@ -78,12 +102,7 @@ export default function ProfileDropdown(props: { profile: UserProfile }) {
                         transition: "opacity 0.2s ease-in-out"
                     }}
                 >
-                    <Link className="button zero-margin brt" href="/user" style={{ textAlign: "right", width: "100%" }}>
-                        <b>My Profile</b>
-                    </Link>
-                    <button className="zero-margin brt" onClick={logout} style={{ textAlign: "right", width: "100%" }}>
-                        Logout
-                    </button>
+                    {dropdownButtonsMarkup}
                 </div>
             </div>
         </div>
