@@ -46,10 +46,7 @@ export function SignInPageContent(): JSX.Element {
                 try {
                     const code: string | null = new URLSearchParams(window.location.search).get("code");
                     if (code) {
-                        const res: Response = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`, {
-                            method: "GET",
-                            headers: { "Content-Type": "application/json" }
-                        });
+                        const res: Response = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`);
                         if (!res.ok) {
                             profile.clear();
                             profile.sync();
