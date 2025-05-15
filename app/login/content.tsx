@@ -48,7 +48,6 @@ export function SignInPageContent(): JSX.Element {
                     if (code) {
                         const res: Response = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`, {
                             method: "GET",
-                            credentials: "include",
                             headers: { "Content-Type": "application/json" }
                         });
                         if (!res.ok) {
