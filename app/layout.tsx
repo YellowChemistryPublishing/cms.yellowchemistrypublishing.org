@@ -1,9 +1,11 @@
 import "../public/shared-common/css/default.css";
 import "../public/shared-common/css/themes/yel-chem-research-light.css";
 
+import { JSX } from "react";
+
 import StyledJsxRegistry from "./registry";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
     return (
         <html lang="en-AU">
             <head>

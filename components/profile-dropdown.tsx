@@ -1,20 +1,19 @@
 "use client";
 
+import { JSX, useEffect, useState } from "react";
 import Image from "next/image";
-import { UserProfile } from "./user_profile";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ReactState } from "./state";
 import { ShouldRedirect } from "./should_redirect";
+import { UserProfile } from "./user_profile";
 
-function logout() {
-    const profile = new UserProfile();
-    profile.clear();
-    profile.sync();
+function logout(): void {
+    new UserProfile().sync();
     new ShouldRedirect("/").redirectRegardless();
 }
-function toggleDropdown() {
-    const dropdown = document.getElementById("profile-dropdown");
-    const chevron = document.getElementById("profile-chevron");
+function toggleDropdown(): void {
+    const dropdown: HTMLElement | null = document.getElementById("profile-dropdown");
+    const chevron: HTMLElement | null = document.getElementById("profile-chevron");
     if (dropdown) {
         if (dropdown.style.opacity === "1") {
             dropdown.style.opacity = "0%";
@@ -27,12 +26,12 @@ function toggleDropdown() {
         }
     }
 }
-function onMouseClick(ev: MouseEvent) {
-    const target = ev.target as HTMLElement;
-    const dropdownContainer = document.getElementById("profile-dropdown-container");
+function onMouseClick(ev: MouseEvent): void {
+    const target: HTMLElement | null = ev.target as HTMLElement;
+    const dropdownContainer: HTMLElement | null = document.getElementById("profile-dropdown-container");
     if (!dropdownContainer?.contains(target)) {
-        const dropdown = document.getElementById("profile-dropdown");
-        const chevron = document.getElementById("profile-chevron");
+        const dropdown: HTMLElement | null = document.getElementById("profile-dropdown");
+        const chevron: HTMLElement | null = document.getElementById("profile-chevron");
         if (dropdown) {
             dropdown.style.opacity = "0%";
             dropdown.style.pointerEvents = "none";
@@ -41,10 +40,10 @@ function onMouseClick(ev: MouseEvent) {
     }
 }
 
-export default function ProfileDropdown(props: { profile: UserProfile }) {
-    const mediaQuery = window.matchMedia("(max-width: 500px)");
+export default function ProfileDropdown(props: { profile: UserProfile }): JSX.Element {
+    const mediaQuery: MediaQueryList = window.matchMedia("(max-width: 500px)");
 
-    const createDropdownButtonsMarkup = (smallScreen: boolean) => {
+    const createDropdownButtonsMarkup = (smallScreen: boolean): JSX.Element => {
         return (
             <>
                 <Link className="button zero-margin brt" href="/user" style={{ textAlign: smallScreen ? "left" : "right", width: "100%" }}>
@@ -56,10 +55,10 @@ export default function ProfileDropdown(props: { profile: UserProfile }) {
             </>
         );
     };
-    const [dropdownButtonsMarkup, setDropdownButtonsMarkup] = useState(createDropdownButtonsMarkup(mediaQuery.matches));
+    const [dropdownButtonsMarkup, setDropdownButtonsMarkup]: ReactState<JSX.Element> = useState(createDropdownButtonsMarkup(mediaQuery.matches));
 
-    useEffect(() => {
-        const onWatchChange = (ev: MediaQueryListEvent) => {
+    useEffect((): (() => void) => {
+        const onWatchChange = (ev: MediaQueryListEvent): void => {
             setDropdownButtonsMarkup(createDropdownButtonsMarkup(ev.matches));
         };
 

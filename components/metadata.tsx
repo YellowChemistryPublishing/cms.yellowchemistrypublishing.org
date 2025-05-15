@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-type HeadMetadata = {
+interface HeadMetadata {
     robotsBad?: boolean;
 
     title?: string;
@@ -18,7 +18,7 @@ type HeadMetadata = {
     copyright?: string;
 
     ogType?: string;
-};
+}
 
 export function headMetadata(metadata: HeadMetadata): Metadata {
     return {

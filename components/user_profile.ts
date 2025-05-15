@@ -3,18 +3,20 @@ export class UserProfile {
     type: string | null = null;
 
     displayName: string | null = null;
-    data: unknown | null = null;
+    data: unknown = null;
 
-    constructor() {
-        const profileSerialized = localStorage.getItem("profile");
-        const profile = profileSerialized ? JSON.parse(profileSerialized) : null;
-        if (profile?.loginToken && profile?.type) {
-            this.loginToken = profile.loginToken;
-            this.type = profile.type;
-        }
-        if (profile?.displayName && profile?.data) {
-            this.displayName = profile.displayName;
-            this.data = profile.data;
+    constructor(fetch: boolean = false) {
+        if (fetch) {
+            const profileSerialized: string | null = localStorage.getItem("profile");
+            const profile: UserProfile | null = profileSerialized ? (JSON.parse(profileSerialized) as unknown as UserProfile) : null;
+            if (profile?.loginToken && profile.type) {
+                this.loginToken = profile.loginToken;
+                this.type = profile.type;
+            }
+            if (profile?.displayName && profile.data) {
+                this.displayName = profile.displayName;
+                this.data = profile.data;
+            }
         }
     }
 
@@ -37,19 +39,19 @@ export class UserProfile {
 
     async fetchAssignUserData(): Promise<void> {
         if (this.empty()) {
-            await Promise.reject("User profile is empty, please log in.");
+            throw Error("User profile is empty, please log in.");
         }
 
-        const res = await fetch("https://api.github.com/user", {
+        const res: Response = await fetch("https://api.github.com/user", {
             headers: { Accept: "application/vnd.github+json", Authorization: this.loginToken! }
         });
-        const data = await res.json();
+        const data: { login: string | null; message: string | null } = (await res.json()) as unknown as { login: string | null; message: string | null };
         if (!res.ok) {
-            const debugLoginToken = this.loginToken;
+            const debugLoginToken: string | null = this.loginToken;
             this.clear();
             this.sync();
-            await Promise.reject(
-                `Invalid \`this.loginToken\`, please log in again. (\`this.loginToken\` was "${debugLoginToken}", response was ${res.status}: ${data.message ?? "[empty]"}.)`
+            throw Error(
+                `Invalid \`this.loginToken\`, please log in again. (\`this.loginToken\` was "${debugLoginToken ?? "null"}", response was ${res.status.toString()}: ${data.message ?? "[empty]"}.)`
             );
         }
 

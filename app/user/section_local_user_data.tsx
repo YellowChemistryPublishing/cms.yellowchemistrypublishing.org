@@ -1,9 +1,10 @@
+import { JSX, useEffect, useState } from "react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { ReactState } from "../../components/state";
 import { UserProfile } from "../../components/user_profile";
 
-export default function LocalUserDataSection(props: { profile: UserProfile }) {
-    const defaultDataMarkup = () => (
+export default function LocalUserDataSection(props: { profile: UserProfile }): JSX.Element {
+    const defaultDataMarkup = (): JSX.Element => (
         <button id="display-userdata" className="brt">
             <Image
                 className="accent-color-tint-1"
@@ -16,11 +17,11 @@ export default function LocalUserDataSection(props: { profile: UserProfile }) {
             &nbsp; Click to View
         </button>
     );
-    const [dataMarkup, setDataMarkup] = useState(defaultDataMarkup());
+    const [dataMarkup, setDataMarkup]: ReactState<JSX.Element> = useState(defaultDataMarkup());
 
     useEffect(() => {
-        const onMouseClick = (ev: MouseEvent) => {
-            const button = ev.target as HTMLElement;
+        const onMouseClick = (ev: MouseEvent): void => {
+            const button: HTMLElement = ev.target as HTMLElement;
             if (button.id == "display-userdata")
                 setDataMarkup(
                     <>
@@ -42,7 +43,7 @@ export default function LocalUserDataSection(props: { profile: UserProfile }) {
         };
 
         addEventListener("click", onMouseClick);
-        return () => {
+        return (): void => {
             removeEventListener("click", onMouseClick);
         };
     }, [props.profile]);

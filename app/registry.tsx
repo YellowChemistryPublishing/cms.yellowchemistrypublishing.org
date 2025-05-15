@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import { createStyleRegistry, StyledJsxStyleRegistry, StyleRegistry } from "styled-jsx";
+import React, { JSX, useState } from "react";
+import { ReactState } from "../components/state";
 import { useServerInsertedHTML } from "next/navigation";
-import { StyleRegistry, createStyleRegistry } from "styled-jsx";
 
-export default function StyledJsxRegistry({ children }: { children: React.ReactNode }) {
-    const [jsxStyleRegistry] = useState(() => createStyleRegistry());
+export default function StyledJsxRegistry({ children }: { children: React.ReactNode }): JSX.Element {
+    const [jsxStyleRegistry]: ReactState<StyledJsxStyleRegistry> = useState(() => createStyleRegistry());
 
     useServerInsertedHTML(() => {
-        const styles = jsxStyleRegistry.styles();
+        const styles: JSX.Element[] = jsxStyleRegistry.styles();
         jsxStyleRegistry.flush();
         return <>{styles}</>;
     });

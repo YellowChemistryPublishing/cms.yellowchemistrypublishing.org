@@ -1,6 +1,7 @@
+import { headMetadata } from "../../components/metadata";
+import { JSX } from "react";
 import { Metadata } from "next";
 import Nav from "../../components/nav";
-import { headMetadata } from "../../components/metadata";
 import UserPageContent from "./content";
 
 export const metadata: Metadata = headMetadata({
@@ -9,10 +10,10 @@ export const metadata: Metadata = headMetadata({
     themeColor: "#ed771d",
     description: "Your details are here!",
     replyTo: "engineering@yellowchemistrypublishing.org",
-    copyright: `${new Date().getFullYear()} Yellow Chemistry Publishing`
+    copyright: `${new Date().getFullYear().toString()} Yellow Chemistry Publishing`
 });
 
-export default function Page() {
+export default function Page(): JSX.Element {
     return (
         <>
             <Nav />

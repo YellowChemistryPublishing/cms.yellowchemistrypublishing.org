@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { JSX } from "react";
 import Link from "next/link";
 
-export default function FilingCabinetFolder(props: { href: string; children: React.ReactNode }) {
+export default function FilingCabinetFolder(props: { href: string; children: React.ReactNode }): JSX.Element {
     return (
         <>
             <style jsx>{`
@@ -20,7 +21,9 @@ export default function FilingCabinetFolder(props: { href: string; children: Rea
                     left: 0;
                     opacity: 0%;
 
-                    transition: left 0.2s ease-in-out, opacity 0.2s ease-in-out;
+                    transition:
+                        left 0.2s ease-in-out,
+                        opacity 0.2s ease-in-out;
                 }
                 :global(a.filing-cabinet-folder:hover > :nth-child(2)) {
                     left: calc(43px + 20px);
@@ -31,7 +34,9 @@ export default function FilingCabinetFolder(props: { href: string; children: Rea
                     left: calc(-43px);
                     opacity: 0%;
 
-                    transition: left 0.2s ease-in-out, opacity 0.2s ease-in-out;
+                    transition:
+                        left 0.2s ease-in-out,
+                        opacity 0.2s ease-in-out;
                 }
                 :global(a.filing-cabinet-folder:hover > :nth-child(1)) {
                     left: calc(20px);

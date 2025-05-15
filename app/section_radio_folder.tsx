@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import FilingCabinetFolder from "../components/filing_cabinet";
+import { ReactState } from "../components/state";
 
-export default function FilingCabinetRadioFolder() {
-    const [markup, setMarkup] = useState(<></>);
-    const [clickCount, setClickCount] = useState(0);
+export default function FilingCabinetRadioFolder(): JSX.Element {
+    const [markup, setMarkup]: ReactState<JSX.Element> = useState(<></>);
+    const [clickCount, setClickCount]: ReactState<number> = useState(0);
 
-    useEffect(() => {
-        const onMouseClick = (ev: MouseEvent) => {
-            const target = ev.target as HTMLElement;
-            const dropdownContainer = document.getElementById("profile-dropdown-container");
+    useEffect((): (() => void) => {
+        const onMouseClick = (ev: MouseEvent): void => {
+            const target: HTMLElement = ev.target as HTMLElement;
+            const dropdownContainer: HTMLElement | null = document.getElementById("profile-dropdown-container");
             if (dropdownContainer?.contains(target)) setClickCount(clickCount + 1);
             if (clickCount === 4)
                 setMarkup(

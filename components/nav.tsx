@@ -1,13 +1,14 @@
 "use client";
 
+import { JSX, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { UserProfile } from "./user_profile";
 import ProfileDropdown from "./profile-dropdown";
+import { ReactState } from "./state";
+import { UserProfile } from "./user_profile";
 
-export default function Nav(props: { hideProfileMarkup?: boolean }) {
-    const loggedOutProfileMarkup = (redirBack: boolean = true) => {
+export default function Nav(props: { hideProfileMarkup?: boolean }): JSX.Element {
+    const loggedOutProfileMarkup = (redirBack: boolean = true): JSX.Element => {
         return (
             <Link className="button brt" href={`/login${redirBack ? `?redir=${window.location.pathname}` : ""}`}>
                 <Image src="res/user-plus.svg" alt="User Icon" width={20} height={20} style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }} />
@@ -16,12 +17,12 @@ export default function Nav(props: { hideProfileMarkup?: boolean }) {
             </Link>
         );
     };
-    const [profileMarkup, setProfileMarkup] = useState(loggedOutProfileMarkup(false));
+    const [profileMarkup, setProfileMarkup]: ReactState<JSX.Element> = useState(loggedOutProfileMarkup(false));
 
     useEffect(() => {
         if (!props.hideProfileMarkup) {
-            const effect = async () => {
-                const profile: UserProfile = new UserProfile();
+            const effect = async (): Promise<void> => {
+                const profile: UserProfile = new UserProfile(true);
                 if (!profile.empty()) {
                     try {
                         if (!profile.resolved()) {
@@ -34,7 +35,10 @@ export default function Nav(props: { hideProfileMarkup?: boolean }) {
                     }
                 } else setProfileMarkup(loggedOutProfileMarkup(true));
             };
-            effect();
+            effect().catch((ex: unknown): void => {
+                console.error(ex);
+                setProfileMarkup(loggedOutProfileMarkup(true));
+            });
         }
     }, [props.hideProfileMarkup]);
 

@@ -1,24 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { isExpectingRedirect, UserProfile } from "../../components/user_profile";
+import { JSX, useEffect, useState } from "react";
 import Image from "next/image";
-import { v4 as uuidv4 } from "uuid";
+import { ReactState } from "../../components/state";
 import { ShouldRedirect } from "../../components/should_redirect";
+import { v4 as uuidv4 } from "uuid";
 
 function oauth2WithGitHub(): void {
-    const clientID = "Ov23liHccCCFfBivxT9D";
-    const redirectUrl = window.location.protocol + "//" + window.location.host + "/login";
-    const scope = "read:user,user:email";
+    const clientID: string = "Ov23liHccCCFfBivxT9D";
+    const redirectUrl: string = window.location.protocol + "//" + window.location.host + "/login";
+    const scope: string = "read:user,user:email";
 
-    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectUrl}&scope=${scope}`;
+    const authUrl: string = `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectUrl}&scope=${scope}`;
 
     new ShouldRedirect(new URLSearchParams(window.location.search).get("redir")).sync();
     window.location.href = authUrl;
 }
 
-export function SignInPageContent() {
-    const defaultMarkup = (onClickNoOp: boolean = false) => (
+export function SignInPageContent(): JSX.Element {
+    const defaultMarkup = (onClickNoOp: boolean = false): JSX.Element => (
         <>
             <h2 style={{ alignSelf: "flex-start" }}>Login with...</h2>
             <button className="brm ptm prm pbm plm" onClick={onClickNoOp ? undefined : oauth2WithGitHub} style={{ fontSize: "xx-large" }}>
@@ -27,11 +28,11 @@ export function SignInPageContent() {
             </button>
         </>
     );
-    const [markup, setMarkup] = useState(defaultMarkup(true));
+    const [markup, setMarkup]: ReactState<JSX.Element> = useState(defaultMarkup(true));
 
     useEffect(() => {
-        const effect = async () => {
-            const profile: UserProfile = new UserProfile();
+        const effect = async (): Promise<void> => {
+            const profile: UserProfile = new UserProfile(true);
             if (!profile.empty() && !profile.resolved()) {
                 await profile.fetchAssignUserData();
                 profile.sync();
@@ -45,18 +46,27 @@ export function SignInPageContent() {
                 try {
                     const code: string | null = new URLSearchParams(window.location.search).get("code");
                     if (code) {
-                        const res = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`, { method: "GET", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: code, state: uuidv4() }) });
+                        const res: Response = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`, {
+                            method: "GET",
+                            credentials: "include",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ code: code, state: uuidv4() })
+                        });
                         if (!res.ok) {
                             profile.clear();
                             profile.sync();
-                            await Promise.reject(`Invalid login code, please log in again. (\`code\` was ${code}, response was "${await res.text()}".)`);
+                            throw Error(`Invalid login code, please log in again. (\`code\` was ${code}, response was "${await res.text()}".)`);
                         }
 
-                        const data = await (async () => {
+                        const data: { tokenType: string; token: string; userData: { login: string } } = await (async (): Promise<{
+                            tokenType: string;
+                            token: string;
+                            userData: { login: string };
+                        }> => {
                             try {
-                                return await (res.json() as unknown as { tokenType: string; token: string; userData: { login: string } });
+                                return (await res.json()) as unknown as { tokenType: string; token: string; userData: { login: string } };
                             } catch {
-                                throw await Promise.reject(`Failed to parse JSON response, please log in again. (\`res.body\` was ${res.body}.)`);
+                                throw Error(`Failed to parse JSON response, please log in again. (\`res.body\` was ${await res.text()}.)`);
                             }
                         })();
                         profile.loginToken = `${data.tokenType} ${data.token}`;
@@ -65,10 +75,10 @@ export function SignInPageContent() {
                         profile.data = data.userData;
                         profile.sync();
 
-                        const redir = new ShouldRedirect();
+                        const redir: ShouldRedirect = new ShouldRedirect();
                         new ShouldRedirect(null).sync();
                         redir.redirectRegardless();
-                    } else await Promise.reject("Assertion failed: `code` is null, please log in again.");
+                    } else throw Error("Assertion failed: `code` is null, please log in again.");
                 } catch (ex) {
                     console.error(ex);
 
@@ -79,7 +89,10 @@ export function SignInPageContent() {
                 }
             }
         };
-        effect();
+        effect().catch((ex: unknown): void => {
+            console.error(ex);
+            setMarkup(defaultMarkup(false));
+        });
     }, []);
 
     return markup;

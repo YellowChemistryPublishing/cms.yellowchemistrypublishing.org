@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { UserProfile } from "../components/user_profile";
+import { JSX, useEffect, useState } from "react";
 import FilingCabinetFolder from "../components/filing_cabinet";
+import { ReactState } from "../components/state";
 
-export default function FilingCabinetAdminFolder() {
-    const [markup, setMarkup] = useState(<></>);
+import { UserProfile } from "../components/user_profile";
+export default function FilingCabinetAdminFolder(): JSX.Element {
+    const [markup, setMarkup]: ReactState<JSX.Element> = useState(<></>);
 
     useEffect(() => {
-        const profile = new UserProfile();
+        const profile: UserProfile = new UserProfile(true);
         if (profile.data && (profile.data as { isAdmin: boolean }).isAdmin)
             setMarkup(
                 <FilingCabinetFolder href="/admin">

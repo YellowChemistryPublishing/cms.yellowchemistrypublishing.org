@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
-import { headMetadata } from "../components/metadata";
-import Nav from "../components/nav";
+import FilingCabinetAdminFolder from "./section_admin_folder";
 import FilingCabinetFolder from "../components/filing_cabinet";
 import FilingCabinetRadioFolder from "./section_radio_folder";
-import FilingCabinetAdminFolder from "./section_admin_folder";
+import { headMetadata } from "../components/metadata";
 import Image from "next/image";
+import { JSX } from "react";
+import type { Metadata } from "next";
+import Nav from "../components/nav";
 
 export const metadata: Metadata = headMetadata({
     title: "cms @ Yellow Chemistry Publishing",
@@ -12,10 +13,10 @@ export const metadata: Metadata = headMetadata({
     themeColor: "#ed771d",
     description: "Welcome to the content management system at Yellow Chemistry Publishing.",
     replyTo: "engineering@yellowchemistrypublishing.org",
-    copyright: `${new Date().getFullYear()} Yellow Chemistry Publishing`
+    copyright: `${new Date().getFullYear().toString()} Yellow Chemistry Publishing`
 });
 
-export default function Page() {
+export default function Page(): JSX.Element {
     return (
         <>
             <Nav />

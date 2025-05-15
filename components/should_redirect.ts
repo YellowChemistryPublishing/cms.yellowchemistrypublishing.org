@@ -16,7 +16,7 @@ export class ShouldRedirect {
 
     redirectRegardless(): void {
         console.log(this);
-        if (this.hasRedir()) window.location.href = window.location.protocol + "//" + window.location.host + this.redirPath;
+        if (this.hasRedir()) window.location.href = window.location.protocol + "//" + window.location.host + this.redirPath!;
         else window.location.href = window.location.protocol + "//" + window.location.host;
     }
 }
