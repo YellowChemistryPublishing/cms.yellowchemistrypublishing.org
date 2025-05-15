@@ -7,15 +7,19 @@ export class UserProfile {
 
     constructor(fetch: boolean = false) {
         if (fetch) {
-            const profileSerialized: string | null = localStorage.getItem("profile");
-            const profile: UserProfile | null = profileSerialized ? (JSON.parse(profileSerialized) as unknown as UserProfile) : null;
-            if (profile?.loginToken && profile.type) {
-                this.loginToken = profile.loginToken;
-                this.type = profile.type;
-            }
-            if (profile?.displayName && profile.data) {
-                this.displayName = profile.displayName;
-                this.data = profile.data;
+            try {
+                const profileSerialized: string | null = localStorage.getItem("profile");
+                const profile: UserProfile | null = profileSerialized ? (JSON.parse(profileSerialized) as unknown as UserProfile) : null;
+                if (profile?.loginToken && profile.type) {
+                    this.loginToken = profile.loginToken;
+                    this.type = profile.type;
+                }
+                if (profile?.displayName && profile.data) {
+                    this.displayName = profile.displayName;
+                    this.data = profile.data;
+                }
+            } catch {
+                this.clear();
             }
         }
     }

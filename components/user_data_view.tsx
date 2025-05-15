@@ -3,8 +3,8 @@ import Image from "next/image";
 import { ReactState } from "../../components/state";
 import { UserProfile } from "../../components/user_profile";
 
-export default function LocalUserDataSection(props: { profile: UserProfile }): JSX.Element {
-    const defaultDataMarkup = (): JSX.Element => (
+export default function LocalUserDataView(props: { profile: UserProfile }): JSX.Element {
+    const defaultMarkup = (): JSX.Element => (
         <button id="display-userdata" className="brt">
             <Image
                 className="accent-color-tint-1"
@@ -17,13 +17,13 @@ export default function LocalUserDataSection(props: { profile: UserProfile }): J
             &nbsp; Click to View
         </button>
     );
-    const [dataMarkup, setDataMarkup]: ReactState<JSX.Element> = useState(defaultDataMarkup());
+    const [markup, setMarkup]: ReactState<JSX.Element> = useState(defaultMarkup());
 
     useEffect(() => {
         const onMouseClick = (ev: MouseEvent): void => {
             const button: HTMLElement = ev.target as HTMLElement;
             if (button.id == "display-userdata")
-                setDataMarkup(
+                setMarkup(
                     <>
                         <pre className="content-box zero-margin">{JSON.stringify(props.profile, null, 4)}</pre>
                         <button id="hide-userdata" className="brt">
@@ -39,7 +39,7 @@ export default function LocalUserDataSection(props: { profile: UserProfile }): J
                         </button>
                     </>
                 );
-            else if (button.id == "hide-userdata") setDataMarkup(defaultDataMarkup());
+            else if (button.id == "hide-userdata") setMarkup(defaultMarkup());
         };
 
         addEventListener("click", onMouseClick);
@@ -48,10 +48,5 @@ export default function LocalUserDataSection(props: { profile: UserProfile }): J
         };
     }, [props.profile]);
 
-    return (
-        <>
-            <h3>Locally Stored User Data</h3>
-            {dataMarkup}
-        </>
-    );
+    return markup;
 }
