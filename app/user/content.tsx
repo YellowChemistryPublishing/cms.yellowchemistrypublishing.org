@@ -1,6 +1,7 @@
 "use client";
 
 import { JSX, useEffect, useState } from "react";
+import ButtonDeleteRemoteData from "../../components/remote_data_delete";
 import LocalUserDataView from "../../components/user_data_view";
 import PopulateFields from "../../components/populate_fields";
 import { ReactState } from "../../components/state";
@@ -42,9 +43,7 @@ export default function UserPageContent(): JSX.Element {
                 inventory access, your administrator status, etc., which will also remove your existing access to authorisation-required applets. If you understand the consequences
                 of this action, please click the button below to proceed.
             </p>
-            <div className="mbm brt accent-color-bgt-1">
-                <button className="zero-margin brt">Delete My User Data</button>
-            </div>
+            <ButtonDeleteRemoteData />
         </>
     );
 }

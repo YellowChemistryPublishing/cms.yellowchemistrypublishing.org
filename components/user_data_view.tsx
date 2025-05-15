@@ -1,7 +1,7 @@
 import { JSX, useEffect, useState } from "react";
 import Image from "next/image";
-import { ReactState } from "../../components/state";
-import { UserProfile } from "../../components/user_profile";
+import { ReactState } from "./state";
+import { UserProfile } from "../components/user_profile";
 
 export default function LocalUserDataView(props: { profile: UserProfile }): JSX.Element {
     const defaultMarkup = (): JSX.Element => (
