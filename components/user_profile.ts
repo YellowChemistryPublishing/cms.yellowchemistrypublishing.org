@@ -5,8 +5,8 @@ export class UserProfile {
     displayName: string | null = null;
     data: unknown = null;
 
-    constructor(fetch: boolean = false) {
-        if (fetch) {
+    constructor(loadLocal: boolean = false) {
+        if (loadLocal) {
             try {
                 const profileSerialized: string | null = localStorage.getItem("profile");
                 const profile: UserProfile | null = profileSerialized ? (JSON.parse(profileSerialized) as unknown as UserProfile) : null;

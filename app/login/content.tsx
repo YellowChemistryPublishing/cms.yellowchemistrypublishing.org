@@ -23,7 +23,7 @@ export function SignInPageContent(): JSX.Element {
         <>
             <h2 style={{ alignSelf: "flex-start" }}>Login with...</h2>
             <button className="brm ptm prm pbm plm" onClick={onClickNoOp ? undefined : oauth2WithGitHub} style={{ fontSize: "xx-large" }}>
-                <Image src="res/github.svg" alt="GitHub Logo" width={20} height={20} style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }} />
+                <Image className="inline-logo" src="res/github.svg" alt="GitHub Logo" width={20} height={20} />
                 &nbsp; Single Sign-On (GitHub)
             </button>
         </>
@@ -37,6 +37,9 @@ export function SignInPageContent(): JSX.Element {
                 await profile.fetchAssignUserData();
                 profile.sync();
             }
+            else if (profile.resolved())
+                setMarkup(defaultMarkup(false));
+                new ShouldRedirect(new URLSearchParams(window.location.search).get("redir") ?? undefined).redirectRegardless();
 
             if (!isExpectingRedirect()) {
                 setMarkup(defaultMarkup(false));

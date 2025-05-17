@@ -76,12 +76,11 @@ export default function ProfileDropdown(props: { profile: UserProfile }): JSX.El
             <p className="zero-box">
                 <Image
                     id="profile-chevron"
-                    className="accent-color-tint-1"
+                    className="inline-logo accent-color-tint-1"
                     src="/res/chevron-right.svg"
                     alt="Right-pointing chevron."
                     width={20}
                     height={20}
-                    style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }}
                 />
                 &nbsp;
             </p>

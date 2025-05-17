@@ -11,7 +11,7 @@ export default function Nav(props: { hideProfileMarkup?: boolean }): JSX.Element
     const loggedOutProfileMarkup = (redirBack: boolean = true): JSX.Element => {
         return (
             <Link className="button brt" href={`/login${redirBack ? `?redir=${window.location.pathname}` : ""}`}>
-                <Image src="res/user-plus.svg" alt="User Icon" width={20} height={20} style={{ verticalAlign: "-0.2em", display: "inline", width: "auto", height: "1.2em" }} />
+                <Image className="inline-logo" src="res/user-plus.svg" alt="User Icon" width={20} height={20} />
                 &nbsp;
                 <b>Login Here!</b>
             </Link>
