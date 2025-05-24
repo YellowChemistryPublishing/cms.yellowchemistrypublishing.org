@@ -36,55 +36,58 @@ export function SignInPageContent(): JSX.Element {
             if (!profile.empty() && !profile.resolved()) {
                 await profile.fetchAssignUserData();
                 profile.sync();
-            } else if (profile.resolved()) {
-                setMarkup(defaultMarkup(false));
                 new ShouldRedirect(new URLSearchParams(window.location.search).get("redir") ?? undefined).redirectRegardless();
+                return;
             }
-
+            if (profile.resolved()) {
+                new ShouldRedirect(new URLSearchParams(window.location.search).get("redir") ?? undefined).redirectRegardless();
+                return;
+            }
             if (!isExpectingRedirect()) {
                 setMarkup(defaultMarkup(false));
-            } else {
-                setMarkup(<p style={{ alignSelf: "flex-start" }}>Hang on, you&apos;re being redirected!</p>);
+                return;
+            }
 
-                try {
-                    const code: string | null = new URLSearchParams(window.location.search).get("code");
-                    if (code) {
-                        const res: Response = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`);
-                        if (!res.ok) {
-                            profile.clear();
-                            profile.sync();
-                            throw Error(`Invalid login code, please log in again. (\`code\` was ${code}, response was "${await res.text()}".)`);
-                        }
+            setMarkup(<p style={{ alignSelf: "flex-start" }}>Hang on, you&apos;re being redirected!</p>);
 
-                        const data: { tokenType: string; token: string; userData: { login: string } } = await (async (): Promise<{
-                            tokenType: string;
-                            token: string;
-                            userData: { login: string };
-                        }> => {
-                            try {
-                                return (await res.json()) as unknown as { tokenType: string; token: string; userData: { login: string } };
-                            } catch {
-                                throw Error(`Failed to parse JSON response, please log in again. (\`res.body\` was ${await res.text()}.)`);
-                            }
-                        })();
-                        profile.loginToken = `${data.tokenType} ${data.token}`;
-                        profile.type = "gh";
-                        profile.displayName = data.userData.login;
-                        profile.data = data.userData;
-                        profile.sync();
+            try {
+                const code: string | null = new URLSearchParams(window.location.search).get("code");
+                if (!code) throw Error("Assertion failed: `code` is null, please log in again.");
 
-                        const redir: ShouldRedirect = new ShouldRedirect();
-                        new ShouldRedirect(null).sync();
-                        redir.redirectRegardless();
-                    } else throw Error("Assertion failed: `code` is null, please log in again.");
-                } catch (ex) {
-                    console.error(ex);
-
+                const res: Response = await fetch(`https://api.yellowchemistrypublishing.org/iam?code=${code}&state=${uuidv4()}`);
+                if (!res.ok) {
                     profile.clear();
                     profile.sync();
-
-                    new ShouldRedirect(window.location.pathname).redirectRegardless();
+                    throw Error(`Invalid login code, please log in again. (\`code\` was ${code}, response was "${await res.text()}".)`);
                 }
+
+                const data: { tokenType: string; token: string; userData: { login: string } } = await (async (): Promise<{
+                    tokenType: string;
+                    token: string;
+                    userData: { login: string };
+                }> => {
+                    try {
+                        return (await res.json()) as unknown as { tokenType: string; token: string; userData: { login: string } };
+                    } catch {
+                        throw Error(`Failed to parse JSON response, please log in again. (\`res.body\` was ${await res.text()}.)`);
+                    }
+                })();
+                profile.loginToken = `${data.tokenType} ${data.token}`;
+                profile.type = "gh";
+                profile.displayName = data.userData.login;
+                profile.data = data.userData;
+                profile.sync();
+
+                const redir: ShouldRedirect = new ShouldRedirect();
+                new ShouldRedirect(null).sync();
+                redir.redirectRegardless();
+            } catch (ex) {
+                console.error(ex);
+
+                profile.clear();
+                profile.sync();
+
+                setMarkup(defaultMarkup(false));
             }
         };
         effect().catch((ex: unknown): void => {
