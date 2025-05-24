@@ -61,21 +61,18 @@ export function SignInPageContent(): JSX.Element {
                     throw Error(`Invalid login code, please log in again. (\`code\` was ${code}, response was "${await res.text()}".)`);
                 }
 
-                const data: { tokenType: string; token: string; userData: { login: string } } = await (async (): Promise<{
-                    tokenType: string;
-                    token: string;
-                    userData: { login: string };
-                }> => {
+                const profileResp: UserProfile = await (async (): Promise<UserProfile> => {
                     try {
-                        return (await res.json()) as unknown as { tokenType: string; token: string; userData: { login: string } };
+                        return (await res.json()) as UserProfile;
                     } catch {
                         throw Error(`Failed to parse JSON response, please log in again. (\`res.body\` was ${await res.text()}.)`);
                     }
                 })();
-                profile.loginToken = `${data.tokenType} ${data.token}`;
-                profile.type = "gh";
-                profile.displayName = data.userData.login;
-                profile.data = data.userData;
+                profile.vendor = profileResp.vendor;
+                profile.vendorData = profileResp.vendorData;
+                profile.vendorToken = profileResp.vendorToken;
+                profile.data = profileResp.data;
+                profile.displayName = (profileResp.vendorData as { login: string }).login;
                 profile.sync();
 
                 const redir: ShouldRedirect = new ShouldRedirect();

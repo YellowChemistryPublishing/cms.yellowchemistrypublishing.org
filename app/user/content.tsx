@@ -24,7 +24,7 @@ export default function UserPageContent(): JSX.Element {
             <PopulateFields
                 data={[
                     { key: <>Display Name</>, value: <b>{profile.displayName}</b> },
-                    { key: <>Authentication Backend</>, value: <b>{profile.type === "gh" ? "GitHub" : ""}</b> },
+                    { key: <>Authentication Backend</>, value: <b>{profile.vendor === "gh" ? "GitHub" : ""}</b> },
                     { key: <>Email</>, value: <b></b> },
                     { key: <>Linked Accounts</>, value: <b></b> },
                     { key: <>Groups</>, value: <b></b> },

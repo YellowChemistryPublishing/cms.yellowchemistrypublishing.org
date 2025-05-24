@@ -1,22 +1,24 @@
 export class UserProfile {
-    loginToken: string | null = null;
-    type: string | null = null;
+    vendor: string | null = null;
+    vendorToken: string | null = null;
+    vendorData: unknown = null; // Data the authentication vendor has on you, i.e. GitHub.
+    data: unknown = null; // Data we have on you.
 
     displayName: string | null = null;
-    data: unknown = null;
 
     constructor(loadLocal: boolean = false) {
         if (loadLocal) {
             try {
                 const profileSerialized: string | null = localStorage.getItem("profile");
                 const profile: UserProfile | null = profileSerialized ? (JSON.parse(profileSerialized) as unknown as UserProfile) : null;
-                if (profile?.loginToken && profile.type) {
-                    this.loginToken = profile.loginToken;
-                    this.type = profile.type;
+                if (profile?.vendorToken && profile.vendor) {
+                    this.vendorToken = profile.vendorToken;
+                    this.vendor = profile.vendor;
                 }
-                if (profile?.displayName && profile.data) {
-                    this.displayName = profile.displayName;
+                if (profile?.vendorData && profile.data && profile.displayName) {
+                    this.vendorData = profile.vendorData;
                     this.data = profile.data;
+                    this.displayName = profile.displayName;
                 }
             } catch {
                 this.clear();
@@ -25,20 +27,21 @@ export class UserProfile {
     }
 
     empty(): boolean {
-        return !this.loginToken || !this.type;
+        return !this.vendorToken || !this.vendor;
     }
     resolved(): boolean {
-        return !!this.loginToken && !!this.type && !!this.displayName && !!this.data;
+        return !!this.vendorToken && !!this.vendor && !!this.vendorData && !!this.data && !!this.displayName;
     }
     clear(): void {
-        this.loginToken = null;
-        this.type = null;
-        this.displayName = null;
+        this.vendorToken = null;
+        this.vendor = null;
+        this.vendorData = null;
         this.data = null;
+        this.displayName = null;
     }
     sync(): void {
         if (this.empty()) localStorage.removeItem("profile");
-        else localStorage.setItem("profile", JSON.stringify({ loginToken: this.loginToken, type: this.type, displayName: this.displayName, data: this.data }));
+        else localStorage.setItem("profile", JSON.stringify(this));
     }
 
     async fetchAssignUserData(): Promise<void> {
@@ -47,21 +50,22 @@ export class UserProfile {
         }
 
         const res: Response = await fetch("https://api.github.com/user", {
-            headers: { Accept: "application/vnd.github+json", Authorization: this.loginToken! }
+            headers: { Accept: "application/vnd.github+json", Authorization: this.vendorToken! }
         });
         const data: { login: string | null; message: string | null } = (await res.json()) as unknown as { login: string | null; message: string | null };
         if (!res.ok) {
-            const debugLoginToken: string | null = this.loginToken;
+            const debugLoginToken: string | null = this.vendorToken;
             this.clear();
             this.sync();
             throw Error(
-                `Invalid \`this.loginToken\`, please log in again. (\`this.loginToken\` was "${debugLoginToken ?? "null"}", response was ${res.status.toString()}: ${data.message ?? "[empty]"}.)`
+                `Invalid \`this.vendorToken\`, please log in again. (\`this.vendorToken\` was "${debugLoginToken ?? "null"}", response was ${res.status.toString()}: ${data.message ?? "[empty]"}.)`
             );
         }
 
-        this.type = "gh";
+        this.vendor = "gh";
+        this.vendorData = data;
+        this.data = { };
         this.displayName = data.login;
-        this.data = data;
     }
 }
 
