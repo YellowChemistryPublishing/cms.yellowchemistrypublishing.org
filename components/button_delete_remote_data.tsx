@@ -8,10 +8,10 @@ export default function ButtonDeleteRemoteData(): JSX.Element {
     const [deleteRequested, setDeleteRequested]: ReactState<number> = useState(0);
 
     useEffect((): (() => void) => {
-        const timerID = setTimeout((): void => {
+        const timerID: NodeJS.Timeout = setTimeout((): void => {
             if (deleteRequested === 1) setDeleteRequested(0);
         }, 2500);
-        return (): void => clearTimeout(timerID);
+        return (): void => { clearTimeout(timerID); };
     }, [deleteRequested]);
 
     if (deleteRequested === 0)
