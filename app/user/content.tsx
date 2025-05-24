@@ -33,8 +33,9 @@ export default function UserPageContent(): JSX.Element {
             />
             <h3>Your Local Data</h3>
             <p>
-                The following data is currently stored locally on your device. This data is not shared with any third parties, and is only used to provide a better experience. Your
-                remote data comprises only of your administrative user data, which would <em>exclude</em>, for example, your GitHub profile. It is deleted as soon as you log out.
+                The following data is currently stored locally on your device. This data is not shared with any third parties, and is only used to provide a better experience. Your{" "}
+                <em>remote</em> data comprises only of your administrative user data, which would <em>exclude</em>, for example, your GitHub profile. It is deleted as soon as you
+                log out.
             </p>
             <ButtonViewLocalData profile={profile} />
             <h3>Delete My Data (Remote)</h3>

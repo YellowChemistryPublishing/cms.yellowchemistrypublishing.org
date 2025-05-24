@@ -49,6 +49,9 @@ export default function Nav(props: { hideProfileMarkup?: boolean }): JSX.Element
                 :global(nav button) {
                     font-size: large;
                 }
+                :global(nav a > h1 > *) {
+                    vertical-align: middle !important;
+                }
             `}</style>
             <noscript>
                 <p className="nav-box">
@@ -65,7 +68,7 @@ export default function Nav(props: { hideProfileMarkup?: boolean }): JSX.Element
                             alt="Yellow Chemistry Research Logo"
                             width={20}
                             height={20}
-                            style={{ verticalAlign: "middle", display: "inline", width: "auto", height: "1.5em" }}
+                            style={{ display: "inline", width: "auto", height: "1.5em" }}
                         />
                         &nbsp;
                         <span style={{ display: "inline-block" }}>cms @&nbsp;</span>

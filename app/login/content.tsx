@@ -36,10 +36,10 @@ export function SignInPageContent(): JSX.Element {
             if (!profile.empty() && !profile.resolved()) {
                 await profile.fetchAssignUserData();
                 profile.sync();
-            }
-            else if (profile.resolved())
+            } else if (profile.resolved()) {
                 setMarkup(defaultMarkup(false));
                 new ShouldRedirect(new URLSearchParams(window.location.search).get("redir") ?? undefined).redirectRegardless();
+            }
 
             if (!isExpectingRedirect()) {
                 setMarkup(defaultMarkup(false));

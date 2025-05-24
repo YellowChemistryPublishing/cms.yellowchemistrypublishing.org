@@ -29,6 +29,10 @@ export default function Page(): JSX.Element {
                     <h2>invenman</h2>
                     <p>Manage your inventories.</p>
                 </FilingCabinetFolder>
+                <FilingCabinetFolder href="/docgen">
+                    <h2>docgen</h2>
+                    <p>Create standard documentation and resources.</p>
+                </FilingCabinetFolder>
                 <FilingCabinetFolder href="/discourse">
                     <h2>DiskHorse</h2>
                     <p>Visit your forums.</p>
