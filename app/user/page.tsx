@@ -5,7 +5,7 @@ import Nav from "../../components/nav";
 import UserPageContent from "./content";
 
 export const metadata: Metadata = headMetadata({
-    title: "cms: User Profile",
+    title: "User Profile | cms",
     favicon: "/shared-common/res/favicon.png",
     themeColor: "#ed771d",
     description: "Your details are here!",

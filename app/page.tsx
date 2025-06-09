@@ -21,7 +21,7 @@ export default function Page(): JSX.Element {
         <>
             <Nav />
             <main className="accent-color-2" style={{ display: "flex", flexDirection: "column", width: "100%", flex: "1 1 0", height: "100%" }}>
-                <FilingCabinetFolder href="/netizen">
+                <FilingCabinetFolder href="/docs">
                     <h2>Policy, Procedures, and Information</h2>
                     <p>Access all your documentation and information here.</p>
                 </FilingCabinetFolder>

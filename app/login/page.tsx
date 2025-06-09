@@ -5,7 +5,7 @@ import Nav from "../../components/nav";
 import { SignInPageContent } from "./content";
 
 export const metadata: Metadata = headMetadata({
-    title: "cms: Login",
+    title: "Login | cms",
     favicon: "/shared-common/res/favicon.png",
     themeColor: "#ed771d",
     description: "Login to cms here!",
