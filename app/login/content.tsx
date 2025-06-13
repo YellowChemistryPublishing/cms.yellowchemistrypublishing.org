@@ -72,7 +72,6 @@ export function SignInPageContent(): JSX.Element {
                 profile.vendorData = profileResp.vendorData;
                 profile.vendorToken = profileResp.vendorToken;
                 profile.data = profileResp.data;
-                profile.displayName = (profileResp.vendorData as { login: string }).login;
                 profile.sync();
 
                 const redir: ShouldRedirect = new ShouldRedirect();

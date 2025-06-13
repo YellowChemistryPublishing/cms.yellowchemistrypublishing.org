@@ -4,8 +4,6 @@ export class UserProfile {
     vendorData: unknown = null; // Data the authentication vendor has on you, i.e. GitHub.
     data: unknown = null; // Data we have on you.
 
-    displayName: string | null = null;
-
     constructor(loadLocal: boolean = false) {
         if (loadLocal) {
             try {
@@ -15,10 +13,9 @@ export class UserProfile {
                     this.vendorToken = profile.vendorToken;
                     this.vendor = profile.vendor;
                 }
-                if (profile?.vendorData && profile.data && profile.displayName) {
+                if (profile?.vendorData && profile.data) {
                     this.vendorData = profile.vendorData;
                     this.data = profile.data;
-                    this.displayName = profile.displayName;
                 }
             } catch {
                 this.clear();
@@ -30,14 +27,13 @@ export class UserProfile {
         return !this.vendorToken || !this.vendor;
     }
     resolved(): boolean {
-        return !!this.vendorToken && !!this.vendor && !!this.vendorData && !!this.data && !!this.displayName;
+        return !!this.vendorToken && !!this.vendor && !!this.vendorData && !!this.data;
     }
     clear(): void {
         this.vendorToken = null;
         this.vendor = null;
         this.vendorData = null;
         this.data = null;
-        this.displayName = null;
     }
     sync(): void {
         if (this.empty()) localStorage.removeItem("profile");
@@ -65,7 +61,6 @@ export class UserProfile {
         this.vendor = "gh";
         this.vendorData = data;
         this.data = { };
-        this.displayName = data.login;
     }
 }
 
