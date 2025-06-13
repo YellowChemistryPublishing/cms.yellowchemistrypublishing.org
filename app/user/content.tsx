@@ -20,7 +20,7 @@ export default function UserPageContent(): JSX.Element {
                 <h2>Account</h2>
                 <PopulateFields
                     data={[
-                        { key: <>Display Name</>, value: <b>{profile.displayName}</b> },
+                        { key: <>Display Name</>, value: <b>{(profile.data as { displayName: string }).displayName}</b> },
                         { key: <>Authentication Backend</>, value: <b>{profile.vendor === "gh" ? "GitHub" : ""}</b> },
                         { key: <>Email</>, value: <b></b> },
                         { key: <>Linked Accounts</>, value: <b></b> },

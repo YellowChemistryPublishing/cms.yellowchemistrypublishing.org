@@ -74,20 +74,13 @@ export default function ProfileDropdown(props: { profile: UserProfile }): JSX.El
     return (
         <div className="pbm" style={{ display: "flex", flexDirection: "row", alignItems: "first baseline", position: "relative" }}>
             <p className="zero-box">
-                <Image
-                    id="profile-chevron"
-                    className="inline-logo accent-color-tint-1"
-                    src="/res/chevron-right.svg"
-                    alt="Right-pointing chevron."
-                    width={20}
-                    height={20}
-                />
+                <Image id="profile-chevron" className="inline-logo accent-color-tint-1" src="/res/chevron-right.svg" alt="Right-pointing chevron." width={20} height={20} />
                 &nbsp;
             </p>
             <div id="profile-dropdown-container" className="brt" style={{ position: "relative" }}>
                 <button className="zero-margin brt" onClick={toggleDropdown} style={{ textAlign: "left", width: "100%" }}>
                     Hi @{props.profile.vendor}:<wbr />
-                    <b>{props.profile.displayName}</b>!
+                    <b>{(props.profile.data as { displayName: string | null }).displayName}</b>!
                 </button>
                 <div
                     id="profile-dropdown"
