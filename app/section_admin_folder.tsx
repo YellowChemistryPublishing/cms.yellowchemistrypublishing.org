@@ -10,7 +10,7 @@ export default function FilingCabinetAdminFolder(): JSX.Element {
 
     useEffect(() => {
         const profile: UserProfile = new UserProfile(true);
-        if (profile.data && (profile.data as { tags: string[] }).tags.indexOf("big_administrator") > -1)
+        if (profile.data && (profile.data as { tags: string[] }).tags.includes("big_administrator"))
             setMarkup(
                 <FilingCabinetFolder href="/admin">
                     <h2>adminctl</h2>
