@@ -11,7 +11,9 @@ export default function ButtonDeleteRemoteData(): JSX.Element {
         const timerID: NodeJS.Timeout = setTimeout((): void => {
             if (deleteRequested === 1) setDeleteRequested(0);
         }, 2500);
-        return (): void => { clearTimeout(timerID); };
+        return (): void => {
+            clearTimeout(timerID);
+        };
     }, [deleteRequested]);
 
     if (deleteRequested === 0)

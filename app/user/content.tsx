@@ -20,17 +20,17 @@ export default function UserPageContent(): JSX.Element {
                 <h2>Account</h2>
                 <PopulateFields
                     data={[
-                        { key: <>Display Name</>, value: <b>{(profile.data as { displayName: string } | null)?.displayName}</b> },
-                        { key: <>Authentication Backend</>, value: <b>{profile.vendor === "gh" ? "GitHub" : ""}</b> },
-                        { key: <>Email</>, value: <b></b> },
-                        { key: <>Linked Accounts</>, value: <b></b> },
-                        { key: <>Groups</>, value: <b></b> },
-                        { key: <>Tags</>, value: <b></b> }
+                        { key: <b>Display Name</b>, value: <b>{(profile.data as { displayName: string } | null)?.displayName}</b> },
+                        { key: <b>Authentication Backend</b>, value: <b>{profile.vendor === "gh" ? "GitHub" : ""}</b> },
+                        { key: <b>Email</b>, value: <b></b> },
+                        { key: <b>Linked Accounts</b>, value: <b></b> },
+                        { key: <b>Groups</b>, value: <b></b> },
+                        { key: <b>Tags</b>, value: <b></b> }
                     ]}
                 />
                 <h3>Your Local Data</h3>
                 <p>
-                    The following data is currently stored locally on your device. This data is not shared with any third parties, and is only used to provide a better experience.
+                    The following data is currently stored locally on your device. This data is not shared with any third parties, and is only used to deliver your user experience.
                     Your <em>remote</em> data comprises only of your administrative user data, which would <em>exclude</em>, for example, your GitHub profile. It is deleted as soon
                     as you log out.
                 </p>

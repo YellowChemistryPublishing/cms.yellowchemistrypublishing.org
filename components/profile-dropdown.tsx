@@ -80,7 +80,7 @@ export default function ProfileDropdown(props: { profile: UserProfile }): JSX.El
             <div id="profile-dropdown-container" className="brt" style={{ position: "relative" }}>
                 <button className="zero-margin brt" onClick={toggleDropdown} style={{ textAlign: "left", width: "100%" }}>
                     Hi @{props.profile.vendor}:<wbr />
-                    <b>{(props.profile.data as { displayName: string | null } | null)?.displayName}</b>!
+                    <b>{(props.profile.data as { displayName: string } | null)?.displayName}</b>!
                 </button>
                 <div
                     id="profile-dropdown"
